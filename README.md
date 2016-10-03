@@ -2,14 +2,14 @@
 
 This is the reference Javascript Baresoil client library for node and the browser. It establishes a secure, two-way connection to a Baresoil server and has two main uses: to allow you to execute server-side handler functions, and to listen for server-sent events. Due to this simple feature set, the client is self-contained in a single file.
 
-Include this library in your frontend project to access the Baresoil Development Environment locally, and Baresoil Cloud over the Internet.
 
 ### Installation
 
-  * npm: `npm install baresoil-client`
-  * bower: `bower install baresoil-client`
+Include `BaresoilClient.min.js` in your frontend project, or install from `npm`.
 
-If your system supports compiling binary modules, you can install the optional `bufferutil` package for better performance.
+  * npm: `npm install baresoil-client`
+
+In `node.js`, if your system supports compiling C++ modules, you can install the optional `bufferutil` package for better performance.
 
 ### Requirements
 
@@ -18,13 +18,13 @@ If your system supports compiling binary modules, you can install the optional `
 
   * In node.js
     * `ws`: WebSocket library, listed in `package.json`.
-
+    * Optionally: `bufferutil` and `utf-8-validate` for better performance.
 
 ### Quickstart
 
     var client = new BaresoilClient();
     client.on('error', console.error);
-    client.on('connect_status', console.log);
+    client.on('connection_status', console.log);
     client.run('some_function', function(err, handlerResults) {
        // Check for errors, do something with results.
     });
