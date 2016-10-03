@@ -1,0 +1,25 @@
+{
+  "name": "baresoil-client",
+  "version": "0.1.0",
+  "description": "Javascript Baresoil client for node and the browser.",
+  "main": "lib/BaresoilClient.js",
+  "scripts": {
+    "compile": "java -jar tools/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --define='BARESOIL_CLIENT_INCLUDE_VERBOSE=false' --js lib/BaresoilClient.js --js_output_file dist/BaresoilClient.min.js --create_source_map dist/BaresoilClient.min.js.map --output_wrapper='(function(){%output%})();'",
+    "test": "mocha test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@i.iceroad.io:mayank/baresoil-client.git"
+  },
+  "author": "Mayank Lahiri <mayank@iceroad.io>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "lodash": "^4.16.3",
+    "mocha": "^3.1.0",
+    "sinon": "^1.17.6"
+  }
+}
