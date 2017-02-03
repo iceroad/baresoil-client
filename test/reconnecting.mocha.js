@@ -3,7 +3,7 @@ var _ = require('lodash')
   , fmt = require('util').format
   , json = JSON.stringify
   , sinon = require('sinon')
-  , ws = require('ws')
+  , ws = global.WebSocket = require('ws')
   ;
 
 
@@ -58,7 +58,6 @@ function TestReconnection(BaresoilClient) {
     beforeEach(function() {
       ResetServer();
     });
-
 
     afterEach(function(cb) {
       serverLog.splice(0, serverLog.length);

@@ -17,7 +17,8 @@ disconnects.
   * In the browser
     * native WebSocket support (i.e., IE 10+, Android Kitkat 4.4+, Firefox 11+, Chrome 16+, Safari 7+, Cordova). In mid-2016, this includes [91% of clients](http://caniuse.com/#feat=websockets) in the wild.
 
-  * In node.js: node version v6.3.4 or higher
+  * On the server
+    * `node.js` version v6.3.4 or greater
 
 ## Installation and Usage
 
