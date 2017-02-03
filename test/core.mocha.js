@@ -296,7 +296,7 @@ function TestCore(BaresoilClient) {
       for (var i = 0; i < 10; i++) {
         client.run('test_function', {someArg: 123}, function(err, result) {
           assert.isNotOk(err);
-          assert.deepEqual(result, [{someArg: 123}]);
+          assert.deepEqual(result, {someArg: 123});
           if (++returned === 10) {
             server.removeListener('message', responderFn);
             client.close();
