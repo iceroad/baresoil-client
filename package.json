@@ -1,7 +1,7 @@
 {
   "name": "baresoil-client",
-  "version": "0.1.4",
-  "description": "Javascript Baresoil client for node and the browser.",
+  "version": "0.2.0",
+  "description": "Baresoil client library for all Javascript environments.",
   "main": "lib/BaresoilClient.js",
   "scripts": {
     "compile": "java -jar tools/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --define='BARESOIL_CLIENT_INCLUDE_VERBOSE=false' --js lib/BaresoilClient.js --js_output_file dist/BaresoilClient.min.js --create_source_map dist/BaresoilClient.min.js.map --output_wrapper='(function(){%output%})();'",
