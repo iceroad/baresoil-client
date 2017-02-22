@@ -305,5 +305,47 @@ function TestCore(BaresoilClient) {
       }
     });
 
+
+    it('should send an argument with "session_request" after construction',
+        function(cb) {
+      var client = new BaresoilClient({
+        serverUrl: serverUrl,
+      });
+      client.setSessionRequest({
+        someData: 123,
+      });
+      server.once('message', function(inArray) {
+        assert.strictEqual(inArray.length, 2);
+        assert.strictEqual(inArray[0], 'session_request');
+        assert.deepEqual(inArray[1], {
+          someData: 123,
+        });
+        client.close();
+        return cb();
+      });
+      client.connect();
+    });
+
+
+    it('should send an argument with "session_request" with construction',
+        function(cb) {
+      var client = new BaresoilClient({
+        serverUrl: serverUrl,
+        sessionRequest: {
+          someData: 456,
+        },
+        connectPolicy: 'immediate',
+      });
+      server.once('message', function(inArray) {
+        assert.strictEqual(inArray.length, 2);
+        assert.strictEqual(inArray[0], 'session_request');
+        assert.deepEqual(inArray[1], {
+          someData: 456,
+        });
+        client.close();
+        return cb();
+      });
+    });
+
   };
 }
