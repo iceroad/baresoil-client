@@ -251,8 +251,9 @@ function TestCore(BaresoilClient) {
           }
         }
       });
-      client.on('clown_patrol', function(eventData) {
-        assert.deepEqual(eventData, {
+      client.on('user_event', function(evtData) {
+        assert.strictEqual(evtData.name, 'clown_patrol');
+        assert.deepEqual(evtData.data, {
           carSize: 500
         });
         client.close();
