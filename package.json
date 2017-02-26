@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "java -jar tools/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --define='BARESOIL_CLIENT_INCLUDE_VERBOSE=false' --js lib/BaresoilClient.js --js_output_file dist/BaresoilClient.min.js --create_source_map dist/BaresoilClient.min.js.map --output_wrapper='(function(){%output%})();'",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test",
-    "test": "mocha test/"
+    "test": "mocha test/",
+    "dist": "npm run compile && cp lib/BaresoilClient.js dist"
   },
   "repository": {
     "type": "git",
