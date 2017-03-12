@@ -21,14 +21,11 @@ function Harness(BaresoilClient, configOverrides) {
   this.configOverrides = configOverrides;
 }
 
-
-Harness.prototype.beforeEach = function(cb) {
-  var BaresoilClient = this.BaresoilClient;
-
+Harness.prototype.createServer = function() {
   //
   // Create test server on a random port.
   //
-  var port = this.port = ++START_PORT;
+  var port = this.port;
   var server = this.server = new ws.Server({port: port});
   var serverLog = this.serverLog = [];
   var clientList = this.clientList = [];
@@ -63,11 +60,23 @@ Harness.prototype.beforeEach = function(cb) {
     });
   }.bind(this);
 
+};
+
+
+Harness.prototype.beforeEach = function(cb) {
+  var BaresoilClient = this.BaresoilClient;
+
+  //
+  // Create server
+  //
+  var port = this.port = ++START_PORT;
+  this.createServer();
+
   //
   // Create client with config overrides.
   //
   var client = this.client = new BaresoilClient(
-      _.merge({}, this.configOverrides, { serverUrl: serverUrl }));
+      _.merge({}, this.configOverrides, { serverUrl: this.serverUrl }));
   var connStatusLog = this.connStatusLog = [];
   var reconnectLog = this.reconnectLog = [];
   client.on('reconnecting', function(timeoutMs) {
