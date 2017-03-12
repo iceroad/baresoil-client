@@ -4,10 +4,10 @@
   "description": "Baresoil client library for all Javascript environments.",
   "main": "lib/BaresoilClient.js",
   "scripts": {
-    "compile": "java -jar tools/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --define='BARESOIL_CLIENT_INCLUDE_VERBOSE=false' --js lib/BaresoilClient.js --js_output_file dist/BaresoilClient.min.js --create_source_map dist/BaresoilClient.min.js.map --output_wrapper='(function(){%output%})();'",
+    "compile": "java -jar tools/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --js lib/BaresoilClient.js --js_output_file dist/BaresoilClient.min.js --create_source_map dist/BaresoilClient.min.js.map --output_wrapper='(function(){%output%})();' && gzip -c9 dist/BaresoilClient.min.js > dist/BaresoilClient.min.js.gz",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test",
-    "test": "mocha test/",
-    "dist": "npm run compile && cp lib/BaresoilClient.js dist"
+    "test": "mocha --check-leaks test/",
+    "dist": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -16,10 +16,11 @@
   "author": "Mayank Lahiri <mayank@iceroad.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "ws": "^2.0.1"
+    "ws": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "colors": "^1.1.2",
     "istanbul": "^0.4.5",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
