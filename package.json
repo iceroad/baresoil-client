@@ -1,6 +1,6 @@
 {
   "name": "baresoil-client",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Baresoil client library for all Javascript environments.",
   "main": "lib/BaresoilClient.js",
   "scripts": {
