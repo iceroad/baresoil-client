@@ -130,6 +130,9 @@ BaresoilClient.prototype.transitionTo_ = function(toState, error) {
   this.error_ = error;
   if (toState !== this.lastEmitted_) {
     this.emit_('connection_status', toState);
+    if (toState === 'connected') {
+      this.emit_('connect');
+    }
     this.lastEmitted_ = toState;
   }
   if (error) {

@@ -1,6 +1,6 @@
 {
   "name": "baresoil-client",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Baresoil client library for all Javascript environments.",
   "main": "lib/BaresoilClient.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "Mayank Lahiri <mayank@iceroad.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "ws": "^2.2.0"
+    "ws": "^2.3.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -24,6 +24,6 @@
     "istanbul": "^0.4.5",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
-    "sinon": "^1.17.7"
+    "sinon": "^2.1.0"
   }
 }
