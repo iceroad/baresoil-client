@@ -1,6 +1,6 @@
 {
   "name": "baresoil-client",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Baresoil client library for all Javascript environments.",
   "main": "lib/BaresoilClient.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@i.iceroad.io:mayank/baresoil-client.git"
+    "url": "https://github.com/iceroad/baresoil-client.git"
   },
   "author": "Mayank Lahiri <mayank@iceroad.io>",
   "license": "Apache-2.0",
