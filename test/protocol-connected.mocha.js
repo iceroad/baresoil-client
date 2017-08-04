@@ -41,7 +41,7 @@ function TestCore(BaresoilClient) {
 
       client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
-          return broadcastFn(['session_response', {ok: true}]);
+          return broadcastFn(['session_response', {auth: true}]);
         }
         if (connStatus === 'connected') {
           _.delay(function() {
@@ -69,7 +69,7 @@ function TestCore(BaresoilClient) {
 
       client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
-          return broadcastFn(['session_response', {ok: true}]);
+          return broadcastFn(['session_response', {auth: true}]);
         }
         if (connStatus === 'connected') {
           _.delay(function() {
@@ -103,7 +103,7 @@ function TestCore(BaresoilClient) {
 
       client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
-          return broadcastFn(['session_response', {ok: true}]);
+          return broadcastFn(['session_response', {auth: true}]);
         }
         if (connStatus === 'connected') {
           _.delay(function() {
@@ -136,7 +136,7 @@ function TestCore(BaresoilClient) {
       client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
           server.on('message', echoResponderFn);
-          return broadcastFn(['session_response', {ok: true}]);
+          return broadcastFn(['session_response', {auth: true}]);
         }
       });
 
@@ -146,7 +146,7 @@ function TestCore(BaresoilClient) {
           _.delay(function() {
             broadcastFn(['rpc_response', {
               requestId: rpcRequest.requestId,
-              result: rpcRequest.arguments
+              result: rpcRequest.argument
             }]);
           }, 5);
         }
@@ -179,7 +179,7 @@ function TestCore(BaresoilClient) {
           _.delay(function() {
             server.close(_.noop);
           }, 500);
-          return broadcastFn(['session_response', {ok: true}]);
+          return broadcastFn(['session_response', {auth: true}]);
         }
       });
 

@@ -37,7 +37,7 @@ function TestCore(BaresoilClient) {
       var connectCount = 0;
       harness.client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
-          return harness.broadcastFn(['session_response', {ok: true}]);
+          return harness.broadcastFn(['session_response', {auth: true}]);
         }
         if(connStatus === 'connected') {
           connectCount++;

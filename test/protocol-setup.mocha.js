@@ -37,13 +37,13 @@ function TestCore(BaresoilClient) {
     it('should authorize a connection with "session_request"', function(cb) {
       var client = harness.client;
       var broadcastFn = harness.broadcastFn;
-      client.setConfigParameter('sessionRequest', {test: 123});
+      client.setSessionRequest({test: 123});
       client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
           _.delay(function() {
             assert.deepEqual(harness.serverLog, [
-              ['session_request', {test: 123}]]);
-            broadcastFn(['session_response', {ok: true}]);
+              ['session_request', {userData: {test: 123}}]]);
+            broadcastFn(['session_response', {auth: true}]);
           }, 20);
         }
         if (connStatus === 'connected') {
@@ -57,12 +57,12 @@ function TestCore(BaresoilClient) {
     it('should terminate connection on a failed "session_response"', function(cb) {
       var client = harness.client;
       var broadcastFn = harness.broadcastFn;
-      client.setConfigParameter('sessionRequest', {test: 123});
+      client.setSessionRequest({test: 123});
       harness.client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
           _.delay(function() {
             assert.deepEqual(harness.serverLog, [
-              ['session_request', {test: 123}]]);
+              ['session_request', {userData: {test: 123}}]]);
             broadcastFn(['session_response', {ok: false}]);
           }, 20);
         }
@@ -76,7 +76,7 @@ function TestCore(BaresoilClient) {
 
     it('should handle prejudiced disconnects based on CloseEvent code, 1', function(cb) {
       var client = harness.client;
-      client.setConfigParameter('sessionRequest', {test: 123});
+      client.setSessionRequest({test: 123});
       client.connect();
       harness.client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
@@ -92,7 +92,7 @@ function TestCore(BaresoilClient) {
 
     it('should handle prejudiced disconnects based on CloseEvent code, 2', function(cb) {
       var client = harness.client;
-      client.setConfigParameter('sessionRequest', {test: 123});
+      client.setSessionRequest({test: 123});
       client.connect();
       harness.client.on('connection_status', function(connStatus) {
         if (connStatus === 'setup') {
@@ -108,7 +108,7 @@ function TestCore(BaresoilClient) {
 
     it('should handle accidental disconnects based on CloseEvent code', function(cb) {
       var client = harness.client;
-      client.setConfigParameter('sessionRequest', {test: 123});
+      client.setSessionRequest({test: 123});
       client.connect();
       var inStateConnecting = 0;
       harness.client.on('connection_status', function(connStatus) {

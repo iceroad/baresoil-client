@@ -29,7 +29,7 @@ Harness.prototype.createServer = function() {
   var server = this.server = new ws.Server({port: port});
   var serverLog = this.serverLog = [];
   var clientList = this.clientList = [];
-  var serverUrl = this.serverUrl = 'ws://localhost:' + port + '/__bs__/live';
+  var endpoint = this.endpoint = 'ws://localhost:' + port + '/__bs__/live';
   this.broadcastFn = function(message) {
     vlog('server_broadcast:', json(message));
     server.clients.forEach(function(client) {
@@ -76,7 +76,7 @@ Harness.prototype.beforeEach = function(cb) {
   // Create client with config overrides.
   //
   var client = this.client = new BaresoilClient(
-      _.merge({}, this.configOverrides, { serverUrl: this.serverUrl }));
+      _.merge({}, this.configOverrides, { endpoint: this.endpoint }));
   var connStatusLog = this.connStatusLog = [];
   var reconnectLog = this.reconnectLog = [];
   client.on('reconnecting', function(timeoutMs) {

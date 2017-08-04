@@ -69,7 +69,7 @@ sent by the server-side handlers are captured.
     var client = new BaresoilClient();
     client.on('error', console.error);
     client.on('connection_status', console.log);
-    client.run('some_function', { arg: 123 }, function(err, handlerResults) {
+    client.run('some_function', { testParam: 123 }, function(err, handlerResults) {
        // Check for errors, do something with results.
     });
     client.on('user_event', function(eventName, eventData) {
@@ -87,26 +87,26 @@ The client library exposes a single class called `BaresoilClient`. It is recomme
 
 ### Construction and options
 
-  * __`serverUrl`__: the URL at which the Baresoil server is listening. Must be explicitly specified in node, and defaults to the path `/__bs__/live` of the server containing the page.
-  * __`sessionPacket`__: arbitrary user-defined data to send to the server when a new connection is established. This parameter is passed to the server-side `session` handler function, if one is defined. _Defaults to undefined_.
+  * __`endpoint`__: the URL at which the Baresoil server is listening. Must be explicitly specified in node, and defaults to the path `/__bs__/live` of the server containing the page.
+  * __`sessionRequest`__: arbitrary user-defined data to send to the server when a new connection is established. This parameter is passed to the server-side `session` handler function, if one is defined. _Defaults to undefined_.
   * __`connectPolicy`__: when the client should actually establish the connection to the server. Can be one of the following values:
     * `auto`: Connect to the server only when the first server-side handler function is called. _(default)_
     * `manual`: Connect only when the `connect()` method is manually called.
     * `immediate`: Connect immediately when the object is constructed.
   * __`verbose`__: writes lots of status information to `console.log`, useful for development. _Defaults to false_.
 
-The __session packet__ can contain any JSON-serializable data (i.e, no function objects), and is automatically sent to the server-side `session` handler as the
-first command of every (re-)connection. Use the session packet to
+The __session request__ can contain any JSON-serializable data (i.e, no function objects), and is automatically sent to the server-side `session` handler as the
+first command of every (re-)connection. Use the session request to
 send information used by the server to set up a new client session, or re-establish an interrupted one.
 
-The session packet can be updated at any time, and accessed via the `sessionPacket` property on the client instance. It is intended to carry a small amount of authentication data, if required.
+The session request can be updated at any time, and accessed via the `sessionRequest` property on the client instance. It is intended to carry a small amount of authentication data, if required.
 
-    client.sessionPacket = {
+    client.setSessionRequest({
       socialSecurityNumber: '123-00-6789',
       bloodType: 'AB-'
-    };
+    });
 
-__Note__: the session packet is instrumental in the design of apps that require authentication or user management. It is communicated to the server over the same secure channel as other function calls, and so is safe for carrying authentication data and secrets. It can assume the role of traditional HTTP cookies without the overhead of sending the cookie with each request.
+__Note__: the session request is instrumental in the design of apps that require authentication or user management. It is communicated to the server over the same secure channel as other function calls, and so is safe for carrying authentication data and secrets. It can assume the role of traditional HTTP cookies without the overhead of sending the cookie with each request.
 
 ### Connecting, disconnecting, and re-connecting
 
@@ -116,7 +116,7 @@ The client emits the `connect_status` event on various connection events. The fi
 
   * `offline`: just waiting around, doing nothing.
   * `connecting`: client just started connecting, stand by...
-  * `setup`: client has established a connection and is sending the session packet to the server-side handler function.
+  * `setup`: client has established a connection and is sending the session request to the server-side handler function.
   * `connected`: session has been established and is now ready for use.
   * `reconnecting`: client has been disconnected, and is attempting to reconnect with a growing backoff delay.
   * `error`: the server terminated our connection. Reconnection should not be attempted until the error is resolved. No subsequent events will be emitted by the client.
@@ -148,7 +148,7 @@ executed, and its results automatically serialized, compressed, and returned to 
 Once connected, server-side handlers can also send events to the client on
 their own accord, i.e., without the client making a request. Examples of this include messaging programs, interactive games, and many situations where one user interacts with another in real time. The client can listen for these events using a simple node-style `EventEmitter` interface, consisting fundamentally of the `on()` and `removeListener()` methods.
 
-    client.on('something_happened', function(alertData) {
+    client.on('user_event', function(alertData) {
       console.log(alertData);
     });
 

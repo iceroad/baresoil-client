@@ -25,7 +25,7 @@ if (!process.env.NO_MINIFIED) {
 function TestCore(BaresoilClient) {
   return function() {
     var client, connStatusLog;
-    var server, serverLog, serverUrl, broadcastFn;
+    var server, serverLog, endpoint, broadcastFn;
     var port = _.random(30000, 31000);
     var verbose = _.get(process, 'env.VERBOSE');
 
@@ -41,7 +41,7 @@ function TestCore(BaresoilClient) {
     beforeEach(function() {
       server = new ws.Server({port: port});
       serverLog = [];
-      serverUrl = 'ws://localhost:' + port + '/__bs__/live';
+      endpoint = 'ws://localhost:' + port + '/__bs__/live';
       broadcastFn = function(message) {
         vlog('server_broadcast:', message);
         server.clients.forEach(function(client) {
@@ -60,7 +60,7 @@ function TestCore(BaresoilClient) {
       });
 
       client = new BaresoilClient({
-        serverUrl: serverUrl,
+        endpoint: endpoint,
         connectPolicy: 'immediate',
       });
       connStatusLog = [];
